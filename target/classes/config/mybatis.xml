@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <environments default="db">
+        <environment id="db">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driverClassName}" />
+                <property name="url" value="${jdbc.ActionDBV2url}" />
+                <property name="username" value="${jdbc.ActionDBV2username}" />
+                <property name="password" value="${jdbc.ActionDBV2password}" />
+                <property name="poolTimeToWait" value="2000" />
+                <property name="poolMaximumActiveConnections" value="50" />
+            </dataSource>
+        </environment>
+    </environments>
+
+</configuration>
