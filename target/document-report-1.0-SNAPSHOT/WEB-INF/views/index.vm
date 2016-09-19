@@ -1,5 +1,5 @@
 #* 设置母板页 *#
-
+#set($title = '欢迎')
 <div>
     <form method="post" action="/signin">
         this is test.
