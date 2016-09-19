@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    welcome
-</body>
-</html>
+#* 设置母板页 *#
+#set($title = '欢迎')
+<div>
+    <form method="post" action="/signin">
+        this is test.
+    </form>
+</div>
