@@ -16,10 +16,11 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    // , method = RequestMethod.POST
+    @RequestMapping(value = "/signin")
     public String signIn(String userid, String pwd, String code) {
         // 登录验证
 
-        return "";
+        return "/workbench/userWorkbench";
     }
 }

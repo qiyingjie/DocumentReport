@@ -1,0 +1,2 @@
+#set($layout = "/layout/adminWorkbenchLayout.vm")
+#set($title = "后台管理")

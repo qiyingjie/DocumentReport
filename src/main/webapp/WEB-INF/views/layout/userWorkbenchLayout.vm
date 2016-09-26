@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>$!{title}</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- this is workbench head. -->
+            #parse("/workbench/userWorkbenchHead.vm")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <!-- this is workbench left navigation. -->
+            #parse("/workbench/userWorkbenchLeft.vm")
+        </div>
+        <div class="col-xs-9">
+            <!-- this is workbench content. -->
+            $screen_content
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- this is workbench foot. -->
+            this is workbench foot.
+        </div>
+    </div>
+<script type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</body>
+</html>
