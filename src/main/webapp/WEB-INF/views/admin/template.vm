@@ -1,42 +1,55 @@
 #set($layout = "/layout/adminWorkbenchlayout.vm")
 #set($title = '设置模板')
-<table class="table">
+<table class="easyui-datagrid" id="dg" title="文档模板编辑">
     <thead>
         <tr>
-            <td>模板名称</td>
-            <td>模板位置</td>
-            <td>操作</td>
+            <th data-options="field:'name',width:80">模板名称</th>
+            <th data-options="field:'remark',width:80">备注</th>
+            <th data-options="width:80">备注</th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td class="text-right" colspan="3">
-                <button class="btn btn-default" type="button">新增</button>
-            </td>
-        </tr>
-    </tfoot>
 </table>
+<div id="tb">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
+</div>
 <script>
     $(function () {
-        
+        $('#dg').datagrid({
+            rownumbers:true,
+            fitcolumns: true,
+            singleSelect:true,
+            autoRowHeight:false,
+            pagination:true,
+            toolbar: '#tb'
+        });
+        $('#dg').datagrid('getPager').pagination({
+            pageSize: 20,
+            pageList: [20, 30, 50, 100],
+            onSelectPage: function (pageNumber, pageSize) {
+                getDataList(pageNumber, pageSize);
+            }
+        });
+
+        getDataList(1, 20);
     });
     
-    function get() {
+    function getDataList(pageNumber, pageSize) {
         $.ajax({
-            url: ./get,
+            url: './template/get',
             type: 'get',
             data: {
-
+                pageIndex: pageNumber,
+                pageSize: pageSize
             },
             success: function (data) {
-
+                if (data) {
+                    if (data.success) {
+                        $('#dg').datagrid('loadData', data);
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
             }
         });
     }

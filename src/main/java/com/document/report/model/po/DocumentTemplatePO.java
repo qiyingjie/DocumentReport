@@ -6,13 +6,7 @@ public class DocumentTemplatePO {
 
     private Long ID;
 
-    private Long Code;
-
     private String Name;
-
-    private String Path;
-
-    private Integer Sort;
 
     private String Remark;
 
@@ -30,36 +24,12 @@ public class DocumentTemplatePO {
         this.ID = ID;
     }
 
-    public Long getCode() {
-        return Code;
-    }
-
-    public void setCode(Long code) {
-        Code = code;
-    }
-
     public String getName() {
         return Name;
     }
 
     public void setName(String name) {
         Name = name;
-    }
-
-    public String getPath() {
-        return Path;
-    }
-
-    public void setPath(String path) {
-        Path = path;
-    }
-
-    public Integer getSort() {
-        return Sort;
-    }
-
-    public void setSort(Integer sort) {
-        Sort = sort;
     }
 
     public String getRemark() {

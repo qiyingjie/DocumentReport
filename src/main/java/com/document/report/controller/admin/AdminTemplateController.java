@@ -1,6 +1,7 @@
 package com.document.report.controller.admin;
 
 import com.document.report.controller.WebBaseController;
+import com.document.report.model.DocumentTemplateVO;
 import com.document.report.model.ResultVO;
 import com.document.report.model.po.DocumentTemplatePO;
 import com.document.report.service.IDocumentTemplateService;
@@ -25,15 +26,18 @@ public class AdminTemplateController extends WebBaseController {
 
     @ResponseBody
     @RequestMapping("/get")
-    public ResultVO<DocumentTemplatePO> get() {
+    public ResultVO<DocumentTemplatePO> get(DocumentTemplateVO params) {
         ResultVO<DocumentTemplatePO> result =  new ResultVO<DocumentTemplatePO>();
         result.setSuccess(false);
 
         try {
-            List<DocumentTemplatePO> poList = documentTemplateService.get();
-            if (poList != null && poList.size() > 0) {
-                result.setRows(poList);
-                result.setSuccess(true);
+            if (params != null && params.getPageIndex() > 0 && params.getPageSize() > 0) {
+                List<DocumentTemplatePO> poList = documentTemplateService.get(params);
+                if (poList != null && poList.size() > 0) {
+                    result.setTotal(documentTemplateService.getTotal(params));
+                    result.setRows(poList);
+                    result.setSuccess(true);
+                }
             }
         }
         catch (Exception e) {

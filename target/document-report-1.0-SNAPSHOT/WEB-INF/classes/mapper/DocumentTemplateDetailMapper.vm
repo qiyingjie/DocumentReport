@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.document.report.dao.IDocumentTemplateDetailMapper">
+
+    <select id="select" parameterType="com.document.report.model.po.DocumentTemplateDetailPO"
+            resultType="com.document.report.model.po.DocumentTemplateDetailPO">
+        select *
+          from DocumentTemplateDetail
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="IsDel == null">and IsDel = 0</if>
+            <if test="IsDel != null">and IsDel = #{IsDel}</if>
+            <if test="ParentID != null">and ParentID = #{ParentID}</if>
+            <if test="FileName != null">and FileName like CONCAT('%', '${FileName}', '%')</if>
+        </trim>
+    </select>
+
+    <insert id="insert" parameterType="com.document.report.model.po.DocumentTemplateDetailPO">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="ID">
+            select LAST_INSERT_ID() AS ID
+        </selectKey>
+        insert into DocumentTemplateDetail(ParentID, FileName, FilePath, Remark, IsDel, CreateAt, ModifyAt)
+            values(#{ParentID}, #{FileName}, #{FilePath}, #{Remark}, #{IsDel}, #{CreateAt}, #{ModifyAt})
+    </insert>
+
+    <update id="update" parameterType="com.document.report.model.po.DocumentTemplateDetailPO">
+        update DocumentTemplateDetail
+        <set>
+            <if test="FileName != null">FileName = #{FileName},</if>
+            <if test="FilePath != null">FilePath = #{FilePath},</if>
+            <if test="Remark != null">Remark = #{Remark},</if>
+            <if test="IsDel != null">IsDel = #{IsDel},</if>
+            <if test="ModifyAt != null">ModifyAt = #{ModifyAt},</if>
+        </set>
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="ID != null">and ID = #{ID}</if>
+            <if test="ParentID != null">and ParentID = #{ParentID}</if>
+            <if test="FileName != null">and FileName = #{FileName}</if>
+            <if test="IsDel != null">and IsDel = #{IsDel}</if>
+        </trim>
+    </update>
+</mapper>

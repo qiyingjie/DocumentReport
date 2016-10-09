@@ -25,18 +25,18 @@
 </table>
 <script>
     $(function () {
-        
+        get();
     });
     
     function get() {
         $.ajax({
-            url: ./get,
+            url: './template/get',
             type: 'get',
             data: {
 
             },
             success: function (data) {
-
+                alert(data);
             }
         });
     }

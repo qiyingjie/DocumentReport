@@ -2,9 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.document.report.dao.IDocumentTemplateMapper">
 
-    <select id="get" resultType="com.document.report.model.po.DocumentTemplatePO">
-        SELECT *
+    <select id="selectCount" parameterType="com.document.report.model.DocumentTemplateVO"
+            resultType="java.lang.Integer">
+        SELECT count(1)
           FROM DocumentTemplate
          WHERE IsDel = 0
     </select>
+
+    <select id="select" parameterType="com.document.report.model.DocumentTemplateVO"
+            resultType="com.document.report.model.po.DocumentTemplatePO">
+        SELECT t.*
+          FROM DocumentTemplate t,
+                (SELECT top (#{pageIndex} * #{pageSize}) ROW_NUMBER() OVER (ORDER BY ID DESC) AS ID FROM DocumentTemplate WHERE IsDel = 0) p
+         WHERE t.IsDel = 0
+            AND t.ID = p.ID
+            AND p.ID > ((#{pageIndex} - 1) * #{pageSize})
+          ORDER BY t.ID DESC
+    </select>
+    
+    <insert id="insert" parameterType="com.document.report.model.po.DocumentTemplatePO">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="ID">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO DocumentTemplate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="Name != null">Name,</if>
+          <if test="Remark != null">Remark,</if>
+          <if test="IsDel != null">IsDel,</if>
+          <if test="CreateAt != null">CreateAt,</if>
+          <if test="ModifyAt != null">ModifyAt,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="Name != null">#{Name},</if>
+          <if test="Remark != null">#{Remark},</if>
+          <if test="IsDel != null">#{IsDel},</if>
+          <if test="CreateAt != null">#{CreateAt},</if>
+          <if test="ModifyAt != null">#{ModifyAt},</if>
+        </trim>
+    </insert>
 </mapper>

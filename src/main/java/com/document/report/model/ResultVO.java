@@ -13,6 +13,8 @@ public class ResultVO<T> {
 
     private T data;
 
+    private int total;
+
     private List<T> rows;
 
     public boolean isSuccess() {
@@ -37,6 +39,14 @@ public class ResultVO<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public List<T> getRows() {

@@ -57,6 +57,12 @@
     <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true" />
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true" />
         </tx:attributes>
     </tx:advice>
 
@@ -64,4 +70,6 @@
         <aop:pointcut id="transactionPointcut" expression="execution(* com.document.report.service..*Impl.*(..))" />
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
     </aop:config>
+
+    <bean id="documentTemplateMapper" class="com.document.report.service.impl.DocumentTemplateServiceImpl"/>
 </beans>
